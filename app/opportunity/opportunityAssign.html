@@ -1,0 +1,93 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Enter the name of opportunity.." ng-model="select" typeahead-on-select="onSelect($item)" uib-typeahead="item as item.opportunity_name for item in getOpportunities($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+        <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+        <div ng-show="noResults">
+      <i class="glyphicon glyphicon-remove"></i> No Results Found
+    </div>
+        <div ng-show="queue.show">
+        <p class="lead margin-top">Reviewers Assigned</p>
+        <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1"> User ID</th>
+                <th class="col-md-1">  </th>
+                <th class="col-md-3"> Name </th>
+                <th class="col-md-3"> Email </th>
+                <th class="col-md-2"> Expertise </th>
+                <th class="col-md-1"> Status </th>
+                <th class="col-md-1"> Actions </th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="item in queue.opportunity_reviewers">
+            <tr>
+                <td ng-bind="item.reviewer_id"></td>
+                <td><input type="checkbox"></td>
+                <td ng-bind="item.reviewer_name"></td>
+                <td ng-bind="item.email"></td>
+                <td ng-bind="item.admin_assigned_expertise"></td>
+                <td ng-bind="item.invite_status"></td>
+                <td>
+                    <i class="fa fa-2x fa-trash pull-left cursor" ng-click="click($index)"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <hr>
+        <div class="col-md-6 text-left"><p class="lead margin-top">Add Reviewers</p></div>
+            <div class="col-md-6 text-right">
+                <form ng-sbmit="search()">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" ng-model="search_text" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+                </form>
+            </div>
+        <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1"> User ID</th>
+                <th class="col-md-3"> Name </th>
+                <th class="col-md-3"> Email </th>
+                <th class="col-md-3"> Expertise </th>
+                <th class="col-md-2"> Actions </th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="item in queue.all_reviewers">
+            <tr >
+                <td ng-bind="item.reviewer_id"></td>
+                <td ng-bind="item.reviewer_name"></td>
+                <td ng-bind="item.email"></td>
+                <td ng-bind="item.admin_assigned_expertise"></td>
+                <td><button class="btn btn-success cursor" ng-click="assign(item)"> Assign </button></td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Remove Reviewer</h3>
+        </div>
+        <div class="modal-body">
+        Are you sure?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="removeItem(true)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="removeItem(false)">Cancel</button>
+        </div>
+    </script>
+</div>

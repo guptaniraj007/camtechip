@@ -1,0 +1,28 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->           
+		
+    <div class="row">
+        <div class="col-lg-12">
+			<div class="row">
+                            <div class="col-lg-6">
+				<p>Please provide a reason why the post is being rejected.</p>
+						
+				<div class="form-group">
+                                    <textarea class="form-control" rows="4" placeholder="Description Text" ng-model="details.reason"></textarea>
+				</div>									
+				<button type="submit" class="btn btn-default" ng-click="cancel()">Cancel</button>
+				<button type="submit" class="btn btn-default" ng-click="save()">Submit</button>
+										
+                            </div>
+			</div>
+                    </div>
+                    <!-- /.panel-body -->
+            </div>
+    <!-- /.row -->
+</div>

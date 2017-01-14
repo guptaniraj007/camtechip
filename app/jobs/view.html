@@ -1,0 +1,97 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->           
+			
+    <div class="row">
+        <div class="col-lg-12">
+                    <form class="form-horizontal">
+			<div class="row">
+                            <div class="col-lg-6">
+				<h3>{{details.title}}</h3>
+                                <h3>{{details.posted_for_name}}</h3>
+        			<div class="form-group">
+                                    <div class="col-sm-12">
+					<textarea class="form-control" rows="2" ng-model="details.short_description" disabled ></textarea>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputLocation" class="col-sm-4 control-label no-padding-left"><p class="text-left">Location</p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputLocation" ng-model="details.location" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+				    <label for="inputJobType" class="col-sm-4 control-label"><p class="text-left">Job Type</p></p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputJobType" ng-model="details.job_type" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputSalary" class="col-sm-4 control-label"><p class="text-left">Salary</p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputSalary" ng-model="details.salary_type" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputSalaryDetails" class="col-sm-4 control-label"><p class="text-left">Salary Details</p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputSalaryDetails" ng-model="details.salary_details" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputPosted" class="col-sm-4 control-label"><p class="text-left">Posted by</p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputPosted" ng-model="details.name" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputEmail" class="col-sm-4 control-label"><p class="text-left">Email</p></label>
+                                    <div class="col-sm-8">
+					<input type="text" class="form-control" id="inputEmail" ng-model="details.email" disabled>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <label for="inputPhone" class="col-sm-4 control-label"><p class="text-left">Phone</p></label>
+                                    <div class="col-sm-4">
+					<input type="text" class="form-control" id="inputPhone" ng-model="details.phone_country_code_name" disabled>
+                                    </div>
+                                    <div class="col-sm-4">
+					<input type="text" class="form-control" id="inputPhone" ng-model="details.phone_number" disabled>
+                                    </div>
+				</div>				
+				<div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label>Long Description</label>
+                                        <textarea class="form-control" rows="4" ng-model="details.long_description" disabled></textarea>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <div class="col-sm-12">
+					<label>Qualifications</label>
+					<textarea class="form-control" rows="4" ng-model="details.qualification" disabled></textarea>
+                                    </div>
+				</div>
+				<div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label>Prior Experience</label>
+                                        <textarea class="form-control" rows="4" ng-model="details.experience" disabled></textarea>
+                                    </div>
+				</div>	
+				<div class="pull-right">
+                                    <button type="submit" class="btn btn-default" ng-click="cancel()">Back</button>
+                                    <a type="reset" class="btn btn-default" ng-href="jobs/reject/{{job_id}}">Reject</a>
+				</div>										
+                            </div>
+			</div>
+		</form>                   
+                </div>
+        <!-- /.col-lg-12 -->                
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->

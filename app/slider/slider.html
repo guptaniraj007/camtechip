@@ -1,0 +1,91 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <fieldset ng-disabled="is_active">
+        <div class="row" ng-repeat="item in queue" ng-class="item.is_active?'success photoCaption item-padding':'warning photoCaption item-padding'">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img no-cache-src="{{cdn+(item.image_name === ''|| item.image_name === '.size' || item.image_name === '.error'?'blank.jpg':item.image_name)}}" alt="slider pic{{$index}}" id="user-av{{$index}}" ng-click="picturePreview(item)" class="slider-image">
+                            <input type="file" name="file" id="imgInp{{$index}}" data-index="{{$index}}" class="hide" file-model="myFile" onchange="angular.element(this).scope().change(this)"/>
+                            <a href="javascript:void(0);" id="browse{{$index}}" class="btn btn-primary" ng-click="browse($index)">Browse<i class="fa fa-upload right"></i></a>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="col-md-4 input-padding">
+                                <input type="text" class="form-control" placeholder="Tag Line" ng-model="item.tagline" maxlength="35">
+                            </div>
+                            <div class="col-md-8 input-padding">
+                                <input type="text" class="form-control" placeholder="Title" ng-model="item.title" maxlength="50">
+                            </div>
+                            <div class="col-md-4 input-padding">
+                                <input type="text" class="form-control" placeholder="Left Button Text" ng-model="item.left_button_text" maxlength="12">
+                            </div>
+                            <div class="col-sm-4 input-padding text-right" style="white-space:nowrap">
+                                <input id="checkbox_right{{$index}}" type="checkbox" ng-model="item.is_right_button_visible"><label class="cursor" for="checkbox_right{{$index}}"><span></span>Show Right Button</label>
+                            </div>
+                            <div class="col-md-4 input-padding">
+                                <input type="text" class="form-control" placeholder="Right Button Text" ng-disabled="!item.is_right_button_visible" ng-model="item.right_button_text" maxlength="12">
+                            </div>
+                            <div class="col-md-6 input-padding">
+                                <input type="text" class="form-control" placeholder="Left button URL" ng-model="item.url_text_left" maxlength="100">
+                            </div>
+                            <div class="col-md-6 input-padding">
+                                <input type="text" class="form-control" placeholder="Right button URL" ng-disabled="!item.is_right_button_visible" ng-model="item.url_text_right" maxlength="100">
+                            </div>
+                            
+                            
+                            <div class="col-md-4 text-left">
+                                <input id="checkbox_active{{$index}}" type="checkbox"  ng-model="item.is_active" ng-click="active_click(item)"><label class="cursor" for="checkbox_active{{$index}}"><span></span>Enabled</label>
+                            </div>
+                            <div class="col-md-8 text-right">
+                                <div class="pull-left">
+                                <i class="fa fa-3x fa-chevron-circle-up cursor" ng-show="$index !== 0" ng-click="moveUp($index)"></i>
+                                <i class="fa fa-3x fa-circle" ng-show="$index === 0 && queue.length !== 1"></i>
+                                <i class="fa fa-3x fa-chevron-circle-down cursor" ng-show="$index !== queue.length - 1" ng-click="moveDown($index)"></i>
+                                <i class="fa fa-3x fa-circle" ng-show="$index === queue.length - 1 && queue.length !== 1"></i>
+                                </div>
+                                <div class="pull-right">
+                                    <button class="btn btn-danger" ng-click="removeItem(queue,$index)" ng-if="$index !== 0"> Remove </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div ng-show="item.alert" class="margin-top">
+                        <p ng-class="(item.image_name === '.error' || item.image_name === '.size')?'danger':'success'" ng-bind="item.image_name === ''?'Uploading':(item.image_name === '.error'?'Error uploading picture, please try again':(item.image_name === '.size'?'Please upload a picture of resolution 1920 &times; 1080 and size less than 2MB.':'Picture successfully uploaded')) "></p>
+                    </div>
+                </div>
+        <div class="row div-padding">
+            <button class="btn btn-success pull-right input-padding-horizontal" ng-click="addSlide()" ng-show="show_add_button"> Add a slide </button>
+            <button class="btn btn-success pull-right input-padding-horizontal" ng-click="init()"> Undo </button>
+            <button class="btn btn-success pull-right input-padding-horizontal" ng-click="save()"> Save </button>
+        </div>
+        </fieldset>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="picturePreview" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" ng-model="preview">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-2x fa-times"></i></button>
+                <h4 class="modal-title">{{preview.text}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <img ng-src="{{cdn+preview.item.image_name}}" class="slider-image">
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+

@@ -1,0 +1,61 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <fieldset ng-disabled="is_active">
+        <div class="row" ng-repeat="item in queue">
+
+            <div class="panel panel-default">
+                <div class="panel-heading hide"></div>
+                <div class="panel-body" ng-class="item.is_active?'success':'warning'">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img ng-src="{{cdn+item.marketplace_id+'.jpg'}}" err-SRC="{{cdn}}blank.jpg" alt="slider pic{{$index}}" id="user-av{{$index}}" class="slider-image">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="form-group input-group">
+                                <input type="text" class="form-control" placeholder="Link" ng-model="item.marketplace_name" ng-change="change(item)">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="linkClick(item.marketplace_name)"><i class="fa fa-external-link"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="col-md-4 text-left">
+                                {{item.marketplace_name}}
+                            </div>
+                            <div class="col-md-8 text-right">
+                                <i class="fa fa-3x fa-chevron-circle-up cursor" ng-show="$index !== 0" ng-click="moveUp($index)"></i>
+                                <i class="fa fa-3x fa-circle" ng-show="$index === 0 && queue.length !== 1"></i>
+                                <i class="fa fa-3x fa-chevron-circle-down cursor" ng-show="$index !== queue.length - 1" ng-click="moveDown($index)"></i>
+                                <i class="fa fa-3x fa-circle" ng-show="$index === queue.length - 1 && queue.length !== 1"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </fieldset>
+        <div class="row div-padding">
+            <button class="btn btn-success pull-right input-padding-horizontal" ng-click="init()"> Undo </button>
+            <button class="btn btn-success pull-right input-padding-horizontal" ng-click="click()"> Save </button>
+        </div>
+    
+   <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Save</h3>
+        </div>
+        <div class="modal-body">
+        Are you sure?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="save(true)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="save(false)">Cancel</button>
+        </div>
+    </script>
+    
+</div>

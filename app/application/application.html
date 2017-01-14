@@ -1,0 +1,81 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->   
+    
+    <div class="row">
+        <div class="col-md-12">
+            
+                <div class="form-group">                    
+                    <select class="form-control" id="opportunity" ng-model="params.opportunity_id" ng-change="filterOpp()">
+                      <option ng-repeat="i in opportunity_list" value="{{i.opportunity_id}}">{{i.opportunity_name}}</option>
+                    </select>
+                </div>
+            
+            <div class="col-md-6 col-md-offset-6 margin-bottom">
+                <div class="pull-right btn-group">
+                    <label class="btn btn-primary" ng-model="filter.all" ng-change="filterClick('All')" btn-checkbox> All </label>
+                    <label class="btn btn-primary" ng-model="filter.prelim_draft" ng-change="filterClick('Prelim-Draft')"  btn-checkbox> &nbsp;Prelim-Draft&nbsp; </label>
+                    <label class="btn btn-primary" ng-model="filter.prelim_submitted" ng-change="filterClick('Prelim-Submitted')"  btn-checkbox> &nbsp;Prelim-Submitted&nbsp; </label>
+                    <label class="btn btn-primary" ng-model="filter.final_submitted" ng-change="filterClick('Final-Submitted')"  btn-checkbox> Final-Submitted </label>                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" ng-cloak="">
+        <table class="table table-hover" id="myTable">
+        <thead>
+            <tr>
+                <th ng-repeat="item in headers">
+                    <a class="cursor" ng-click="sort(item.key,item.sort)" ng-bind="item.value"></a>
+                    <i class="fa fa-chevron-down" ng-show="params.sort_param === item.key && params.sort_type === 'desc'"></i>
+                    <i class="fa fa-chevron-up" ng-show="params.sort_param === item.key && params.sort_type === 'asc'"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in data">
+                <td ng-repeat="head in headers">
+                    <span ng-bind-html="head.key === 'is_expert' ? (item[head.key] ? 'Expert' : 'Innovator') : (head.type === 'boolean' ? (item[head.key] ? 'Yes' : 'No') : (item[head.key]))"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="{{headers.length}}">
+                    <div class="col-md-4 col-sm-12 pull-left">
+                        <strong style="color: #2a6496">
+                            {{params.row_index}} - {{total_pages === page_number ? total_count : (params.row_index + params.num_of_records - 1)}} of {{total_count}} records 
+                        </strong>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <strong style="color: #2a6496">
+                            No. of records:
+                        </strong>
+                        <select class="input-sm" ng-model="params.num_of_records" ng-options="index as index for index in records" ng-change="pageSizeChanged()">
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-sm-12 pull-right">
+                        <div class="col-md-6 text-right">
+                            <a ng-class="page_number === 1? 'cursor-not-allowed' : 'cursor'" ng-click="first()"><i class="fa fa-2x fa-step-backward"></i></a>
+                            <a ng-class="page_number === 1? 'cursor-not-allowed' : 'cursor'" ng-click="previous()"><i class="fa fa-2x fa-chevron-left"></i></a>
+                        </div>
+                        <select class="input-sm col-md-3" ng-model="page_number" ng-options="index as index for index in pages" ng-change="seek()">
+                        </select>
+                        <div class="col-md-3 text-left">
+                            <a ng-class="page_number === total_pages? 'cursor-not-allowed' : 'cursor'" ng-click="next()"><i class="fa fa-2x fa-chevron-right"></i></a>
+                            <a ng-class="page_number === total_pages? 'cursor-not-allowed' : 'cursor'" ng-click="last()"><i class="fa fa-2x fa-step-forward"></i></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+        <a class="btn btn-default" ng-href="{{csv}}" download="Applications.csv"> Download to Excel</a>
+    </div>
+</div>
+

@@ -1,0 +1,107 @@
+<div id="page-wrapper" ng-show="load" ng-cloak="splash">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <form name="myForm" novalidate>
+                    <style type = "text/css" scoped>
+                        p{margin: 0 0 0px !important;}
+                    </style>
+                        <div class="col-md-6">
+                            <img no-cache-src="{{cdn+(opportunity.image_name === ''|| opportunity.image_name === '.size' || opportunity.image_name === '.error'?'blank.jpg':opportunity.image_name)}}" alt="slider pic" id="user-av" class="slider-image">
+                            <input type="file" name="file" id="imgInp" data-index="{{opportunity.opportunity_id}}" class="hide" file-model="myFile" onchange="angular.element(this).scope().change(this)"/>
+                            <a href="javascript:void(0);" id="browse" class="btn btn-primary" ng-click="browse('#imgInp')">Browse<i class="fa fa-upload right"></i></a>
+                            <p>Please upload image of size 800 px x 600 px. JPG images are best since they are compressed.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group input-group input-padding">
+                                <span class="input-group-addon"><i class="fa fa-trophy"></i></span>
+                                <input type="text" class="form-control" name="award_amount" placeholder="Award" ng-model="opportunity.award_amount" required>
+                                </div>
+                            <p ng-show="(!myForm.award_amount.$pristine) && myForm.award_amount.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            <input type="text" class="form-control input-padding" name="headline" required placeholder="Heading" ng-model="opportunity.headline" maxlength="50"> 
+                            <p ng-show="(!myForm.headline.$pristine) && myForm.headline.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            <select class="form-control input-padding" name="category_id" required ng-model="opportunity.category_id" ng-options="item.category_id as item.category_name for item in category_list">
+                            </select>
+                            <p ng-show="(!myForm.category_id.$pristine) && myForm.category_id.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+							<div class="col-md-3 form-group input-group input-padding pull-left">
+								<div class="checkbox">
+									<label><input type="checkbox" ng-model="opportunity.is_external" ng-click="stateChanged()" checked="opportunity.is_external">External</label>
+								</div>
+                            </div>
+							<div class="col-md-9">
+								<input type="url" class="form-control input-padding" ng-model="opportunity.external_link" name="external_link" placeholder="External URL" ng-disabled="opportunity.external" ng-required="opportunity.is_external">								
+								<p ng-show="external_required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Please provide a URL prefixed with http://</p>
+                            </div>
+							<div class="col-md-12" style="padding-left:0px;">
+								<p>Application Deadline</p>
+							</div>
+                            <div class="col-md-6 form-group input-group input-padding pull-left">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="date" class="form-control" name="application_date" required ng-model="opportunity.application_date">
+                                
+                                <!--<input type="text" class="form-control" placeholder="Application Deadline Date" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="opportunity.application_date" show-weeks="false" show-button-bar="false" />-->
+                            </div>
+                            <div class="col-md-6 form-group input-group input-padding pull-right">
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                <input type="time" class="form-control" ng-model="time.application_time">
+                                <!--<div class="form-control" placeholder="Application Deadline Time" popover-is-open="time.show" uib-popover-template="timeApplicationPopover.html"  popover-trigger="click" popover-placement="bottom" ng-bind="time.application_time|date:'h:mma'"></div>-->
+                            </div>
+                            <p ng-show="(!myForm.application_date.$pristine) && myForm.application_date.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            <div class="col-md-12" style="padding-left:0px;">
+                            <p>Final Application Deadline</p>
+							</div>
+                            <div class="col-md-6 form-group input-group input-padding pull-left">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="date" class="form-control" name="review_date" required ng-model="opportunity.final_date">
+                                <!--<input type="text" class="form-control" placeholder="Review Deadline Date" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="opportunity.review_date" show-weeks="false" show-button-bar="false" />-->
+                            </div>
+                            <div class="col-md-6 form-group input-group input-padding pull-right">
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                <input type="time" class="form-control" ng-model="time.final_time">
+                                <!--<div class="form-control" placeholder="Review Deadline Time" popover-is-open="time.show" uib-popover-template="timeReviewPopover.html"  popover-trigger="click" popover-placement="bottom" ng-bind="time.review_time|date:'h:mma'"></div>-->
+                            </div>
+                            <p ng-show="(!myForm.final_date.$pristine) && myForm.final_date.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            <div class="col-md-12" style="padding-left:0px;">
+								<p>Review Deadline</p>
+							</div>
+                            <div class="col-md-6 form-group input-group input-padding pull-left">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input type="date" class="form-control" name="review_date" required ng-model="opportunity.review_date">
+                                <!--<input type="text" class="form-control" placeholder="Review Deadline Date" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="opportunity.review_date" show-weeks="false" show-button-bar="false" />-->
+                            </div>
+                            <div class="col-md-6 form-group input-group input-padding pull-right">
+                                <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                                <input type="time" class="form-control" ng-model="time.review_time">
+                                <!--<div class="form-control" placeholder="Review Deadline Time" popover-is-open="time.show" uib-popover-template="timeReviewPopover.html"  popover-trigger="click" popover-placement="bottom" ng-bind="time.review_time|date:'h:mma'"></div>-->
+                            </div>
+                            <p ng-show="(!myForm.review_date.$pristine) && myForm.review_date.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            
+                            <div class="no-margin-p" text-angular name="description" required ng-model="opportunity.description"></div>
+                            <p ng-show="(!myForm.description.$pristine) && myForm.description.$error.required" style="color:red" class="help-block"><i class="fa fa-asterisk"></i>Required</p>
+                            <div class="form-group input-padding">
+                            <input type="file" name="file" id="attach1" data-index="{{opportunity.opportunity_id}}" class="hide" file-model="attach1" onchange="angular.element(this).scope().changeFile(this)"/>
+                            <a href="javascript:void(0);" id="browse" class="btn btn-primary" ng-click="browse('#attach1')">Browse<i class="fa fa-upload right"></i></a>
+                            <a ng-bind="opportunity.attachment_display_name_1" ng-href="http://camtechmgh.org/cdn/opportunity/attachment/{{opportunity.attachment_name_1}}" target="_blank"></a>
+                            </div>
+                            <div class="form-group input-padding">
+                            <input type="file" name="file" id="attach2" data-index="{{opportunity.opportunity_id}}" class="hide" file-model="attach2" onchange="angular.element(this).scope().changeFile(this)"/>
+                            <a href="javascript:void(0);" id="browse" class="btn btn-primary" ng-click="browse('#attach2')">Browse<i class="fa fa-upload right"></i></a>
+                            <a ng-bind="opportunity.attachment_display_name_2"  ng-href="http://camtechmgh.org/cdn/opportunity/attachment/{{opportunity.attachment_name_2}}" target="_blank"></a>
+                            </div>
+                            
+                            <button class="btn btn-success pull-left" ng-click="save('open')" ng-disabled="disbled"> Publish </button>
+                            <button class="btn btn-success pull-left input-padding-horizontal" ng-click="save('draft')" ng-disabled="!opportunity.can_be_drafted"> Save to Drafts </button>
+							<button class="btn btn-danger pull-left input-padding-horizontal" ng-click="removeItem(opportunity.opportunity_id)" ng-disabled="opportunity.status !== 'draft'"> Delete </button>
+
+
+                    </div>
+            </form>
+    </div>
+    </div>
+</div>

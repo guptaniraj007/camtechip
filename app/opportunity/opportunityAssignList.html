@@ -1,0 +1,114 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <input type="text" class="form-control input-padding" placeholder="Enter the name of opportunity.." ng-model="select" typeahead-on-select="onSelect($item)" uib-typeahead="item as item.opportunity_name for item in getOpportunities($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+            <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noResults">
+                <i class="glyphicon glyphicon-remove"></i> No Results Found
+            </div>
+            <uib-tabset ng-show="queue.show">
+                <uib-tab select="searchReviewers('')">
+                    <tab-heading class="cursor">
+                        Reviewers
+                    </tab-heading>
+                    <div class="col-md-6 col-md-offset-6 text-right">
+                        <form ng-submit="searchReviewers(review_text)">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" ng-model="review_text" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+                </form>
+            </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1"> Innovation ID</th>
+                                <th class="col-md-2"> Title </th>
+                                <th class="col-md-2"> Reviewer Name </th>
+                                <th class="col-md-1"> User ID </th>
+                                <th class="col-md-1"> Acceptance Status </th>
+                                <th class="col-md-1"> Review Status </th>
+                                <th class="col-md-3"> Areas of Expertise </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="item in queue.reviewers">
+                            <tr>
+                                <td ng-bind="item.innovation_id"></td>
+                                <td ng-bind="item.innovation_name"></td>
+                                <td ng-bind="item.reviewer_name"></td>
+                                <td ng-bind="item.reviewer_id"></td>
+                                <td ng-bind="item.invite_status"></td>
+                                <td><a ng-href="{{item.review_status == 'completed'?'review/'+item.review_id:''}}">{{angular.isUndefined(item.review_status)?'':item.review_status}}</a></td>
+                                <td ng-bind="item.admin_assigned_expertise"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-default" ng-href="{{csv.reviews}}" download="Reviews.csv">Download Reviews</a>
+                    <a class="btn btn-default" ng-href="{{csv.summary}}" download="Summary.csv">Download Summary</a>
+                </uib-tab>
+                <uib-tab select="searchApplications('')">
+                    <tab-heading class="cursor">
+                        Applications
+                    </tab-heading>
+                    <div class="col-md-6 col-md-offset-6 text-right">
+                        <form ng-submit="searchApplications(application_text)">
+                <div class="input-group custom-search-form">
+                    <input type="text" class="form-control" ng-model="application_text" placeholder="Search...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+                </form>
+            </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-md-1"> Innovation ID</th>
+                                <th class="col-md-3"> Title </th>
+                                <th class="col-md-2"> Status </th>
+                                <th class="col-md-4"> # of Reviewers </th>
+                                <th class="col-md-2"> Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="item in queue.reviewers">
+                            <tr>
+                                <td ng-bind="item.innovation_id"></td>
+                                <td><a target="_blank" ng-href="application/{{item.application_id}}">{{item.innovation_name}}</a></td>
+                                <td ng-bind="item.status"></td>
+                                <td>{{'Busi:'+item.num_of_business_reviewers_assigned+',Tech:'+item.num_of_tech_reviewers_assigned+',Clin:'+item.num_of_clinical_reviewers_assigned}}</td>
+                                <td> <button class="btn btn-danger" ng-click="reject(item)" ng-disabled="item.is_rejected" ng-show="item.application_status != 'rejected'"> Reject </button>
+                                <button class="btn btn-success" ng-click="accept(item)" ng-disabled="item.is_rejected" ng-show="item.application_status == 'pending'"> Accept </button>
+                                <button class="btn btn-success" ng-click="assign(item)" ng-disabled="item.is_rejected" ng-show="item.application_status == 'accepted'"> Assign </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </uib-tab>
+                </uib-tabset>
+        </div>
+    </div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" ng-bind="modal.heading"></h3>
+        </div>
+        <div class="modal-body">
+        Are you sure?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="removeItem(true)">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="removeItem(false)">Cancel</button>
+        </div>
+    </script>
+</div>

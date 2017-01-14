@@ -1,0 +1,176 @@
+<div id="page-wrapper" ng-show="load">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{header}}</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-md-12">
+            <img ng-src="http://camtechmgh.org/cdn/innovation/{{innovation.innovation_id}}.jpg" alt="profile name" id="user-av" class="mb-15 profile-pic center-cropped">
+    <div class="form-field-wrapper">
+        <label>Innovation Name</label>
+        <p>{{innovation.innovation_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Country</label>
+        <p>{{innovation.location_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Clinical Area</label>
+        <p>{{innovation.clinical_area_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Project Stage</label>
+        <p>{{innovation.innovation_stage_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Organization Type</label>
+        <p>{{innovation.org_type_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Source of Innovation</label>
+        <p>{{innovation.innovation_source_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Innovation Type</label>
+        <p>{{innovation.innovation_type_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Summary</label>
+        <p>{{innovation.description}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Funds Raised</label>
+        <p>{{isNaN(innovation.fund_raised) || innovation.fund_raised === '' || innovation.fund_raised === 'NaN' ?'0':innovation.fund_raised}}</p>
+    </div>
+
+    <hr class="mt-25 mb-25">
+    <h4 class="mb-30">Page 2 : Application Details</h4>
+     <hr class="mt-25 mb-25">
+    <div class="form-field-wrapper">
+        <label>Team Members</label>
+        <p ng-repeat="item in innovation.team_members">
+            {{item.name}}<i ng-if="item.is_principal">&nbsp;(Primary Applicant/Principal Investigator)</i>
+        </p>
+        <p ng-repeat="item in innovation.team_member_pending">
+            {{item.name}}(pending approval)
+        </p>
+    </div>
+    <!--<div class="form-field-wrapper">
+        <label>Primary Applicant/Principal Investigator</label>
+        <p>{{innovation.principal_applicant}}</p>
+    </div>-->
+     
+      <div class="form-field-wrapper">
+        <label>Are you working with a Camtech Partner?</label>
+
+            <p>{{innovation.is_camtech_partner?'Yes':'No'}}</p>
+
+    </div>
+    <div class="form-field-wrapper">
+        <label>Partners</label>
+        <div ng-repeat="item in innovation.working_partners" >
+            <p>{{item.partner_name === 'Other'?item.other_text:item.partner_name}}</p>
+        </div>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Description of your team member's roles.</label>
+        <div ng-repeat="item in innovation.team_members">
+            <p>{{item.name}}</p>
+            <p>{{item.role_description}}</p>
+        </div>
+    </div>
+    <div class="form-field-wrapper">
+        <label>What is/are your source(s) of funding?</label>
+        <div ng-repeat="item in innovation.source_of_funding">
+            <p>{{item.funding_name === 'Other'?item.other_text:item.funding_name}}</p>
+        </div>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Name of the institution</label>
+        <p>{{innovation.institution_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Target Geography</label>
+        <p>Primary Country</p>
+        <p>{{innovation.primary_target_location_name}}</p>
+        <p>Secondary Country</p>
+        <p>{{innovation.secondary_target_location_name}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Do you currently have approval for trials – including Human
+            Subjects, Vertebrate Animals, or Human Embryonic Stem Cells?</label>
+        <p>{{innovation.have_approval_for_trials === 'Y'?'Yes':(innovation.have_approval_for_trials === 'N'?'No':'Not Applicable')}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>How do plan to engage end-users in the development of your innovation?</label>
+        <p>{{innovation.plan_to_engage_eu}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Elaborate on the cross-disciplinary expertise engaged in the development of your innovation. Expertise can include team members as well as organizations.</label>
+        <p>{{innovation.cross_disciplinary_expertise}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Have you filled Intellectual Property Protection for this innovation?</label>
+        <p>{{innovation.is_filled_ipp?'Yes':'No'}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>If yes, please provide details. If no, please explain why.</label>
+        <p>{{innovation.ipp_details}}</p>
+    </div>
+
+    <hr class="mt-25 mb-25">
+
+    <h4 class="mb-30"> PAGE 3 : ACCELERATOR PROGRAM</h4>
+     <hr class="mt-25 mb-25">
+    <div class="form-field-wrapper">
+        <label>Please explain why you are interested in the CAMTech Innovation Accelerator Program.</label>
+        <p>{{innovation.ciap_interest_details}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>If you were to receive accelerator support from CAMTech, what would you like to accomplish through the accelerator program? Please summarize your goals and milestones you would ideally like to achieve with this funding and accelerator support.</label>
+        <p>{{innovation.accelerator_support_details}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>What type(s) of mentorship do you require to support your innovation? How do you envision CAMTech assisting in this process?</label>
+        <p>{{innovation.mentorship_required_details}}</p>
+    </div>
+
+    <hr class="mt-25 mb-25">
+
+    <h4 class="mb-30"> PAGE 4 : Documents Upload</h4>
+     <hr class="mt-25 mb-25">
+    <div class="form-field-wrapper">
+        <label>If invited for a full proposal, would you be interested in collaborating with a CAMTech partner?</label>
+        <p>{{innovation.is_interested_in_partnering?'Yes':'No'}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>Which partner would you be interested in collaborating with?</label>
+        <div ng-repeat="item in innovation.would_partner_with" >
+            <p>{{item.partner_name === 'Other'?item.other_text:item.partner_name}}</p>
+        </div>
+    </div>
+    <div class="form-field-wrapper">
+        <label>In the event that other funding organizations are interested in your innovation, would you like CAMTech to share your application/proposal with them?</label>
+        <p>{{innovation.is_interested_in_other_org_funding?'Yes':'No'}}</p>
+    </div>
+    <div class="form-field-wrapper">
+        <label>If you have any feedback on how CAMTech can improve the award process, please comment.</label>
+        <p>{{innovation.feedback}}</p>
+    </div>
+<div class="form-field-wrapper">
+        <label>Preliminary Documents</label>
+        <p><a ng-href="http://camtechmgh.org/cdn/application/{{innovation.admin_doc_name+innovation.admin_doc_display_name.substr(innovation.admin_doc_display_name.lastIndexOf('.'))}}" target="_blank">{{innovation.admin_doc_display_name}}</a></p>
+        <p><a ng-href="http://camtechmgh.org/cdn/application/{{innovation.proposal_doc_name+innovation.proposal_doc_display_name.substr(innovation.proposal_doc_display_name.lastIndexOf('.'))}}" target="_blank">{{innovation.proposal_doc_display_name}}</a></p>
+    </div>
+     
+     <div class="form-field-wrapper" ng-show="!angular.isUndefined(innovation.final_admin_doc_display_name) && innovation.final_admin_doc_display_name.length > 0">
+        <label>Final Documents</label>
+        <p><a ng-href="http://camtechmgh.org/cdn/application/{{innovation.final_admin_doc_name+innovation.final_admin_doc_display_name.substr(innovation.final_admin_doc_display_name.lastIndexOf('.'))}}" target="_blank">{{innovation.final_admin_doc_display_name}}</a></p>
+        <p><a ng-href="http://camtechmgh.org/cdn/application/{{innovation.final_proposal_doc_name+innovation.final_proposal_doc_display_name.substr(innovation.final_proposal_doc_display_name.lastIndexOf('.'))}}" target="_blank">{{innovation.final_proposal_doc_display_name}}</a></p>
+    </div>
+        </div>
+    </div>
+</div>
